@@ -1,1 +1,3 @@
-Design a function that simulates caring for a virtual pet by using C#.
+Name: Bin Hu
+Project Title: Lab3
+Student ID: 9000002
