@@ -1,5 +1,11 @@
 Description: Design a function that simulates caring for a virtual pet by using C#.
 
+
+Link of the video: https://youtu.be/VnHvl-KoUoo
+
+Code Path: https://github.com/BinHuConestoga/Virtual-Pet-Simulator-Project/blob/master/WebApplication2/Program.cs
+
+
 Instruction: 
 
 	1. The first step of the design is showing the manu of 3 different pets. Users can choose any one of them. Such as: 1
@@ -28,4 +34,3 @@ Instruction:
 
 	   If you are choosing activity e, the process will be ended properly. The result is: Exit the process.
 
-Link of the recording: 

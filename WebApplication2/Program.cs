@@ -1,3 +1,8 @@
+/*Project Name: Virtual Pet Simulator Project*/
+/*Description: Develop a console application in C# that simulates caring for a virtual pet.*/
+/*Author: Bin Hu*/
+/*Create date: 2024/5/22*/
+
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
