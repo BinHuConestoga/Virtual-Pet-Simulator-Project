@@ -1,19 +1,25 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Bin_Test
 {
     public class Pet_Attributes
     {
-
+        /* Main Function: Initializaion for the variables. Including the whole process: Select pet/Name pet/User's activities.*/
         public static void Main(string[] args)
         {
+            int Hunger = 5;
+            int Happiness = 5;
+            int Health = 5;
             int PetNum = SelectPet();
+       
             string PetName = NameYourPet(PetNum);
-            MainManu(PetName);
+            MainManu(PetName, Hunger, Happiness, Health);
                 
         }
-
+        /*List 3 pet manu and ask users to select one.*/
         public static int SelectPet()
         {
             Console.WriteLine("Please choose a type of pet:");
@@ -22,12 +28,34 @@ namespace Bin_Test
             Console.WriteLine("3. Tiger");
             Console.WriteLine();
             Console.Write("Please select: ");
-            int Pet = int.Parse(Console.ReadLine());
-            if (Pet < 1 && Pet > 3)
-                ExceptionHandlingForPet();
-            return Pet;
+
+            int Pet;
+
+            try
+            {
+                Pet = int.Parse(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Please input numeric charactors!!");
+                Console.WriteLine();
+                return SelectPet();
+
+            }
+
+
+            if (Pet < 1 || Pet > 3)
+                {
+                    WarningForInputCorrectNumber();
+                    return SelectPet();
+                }
+
+            else
+                return Pet;
+          
         }
 
+        /*Name the pet.*/
         public static string NameYourPet(int PetNum)
         {
             String[] PetSelection = {"Monkey", "Elephant", "Tiger"};
@@ -43,7 +71,8 @@ namespace Bin_Test
                 
          }
 
-        public static void MainManu(string PetName) {
+        /*Show the main manu of 5 activities.*/
+        public static int MainManu(string PetName, int Hunger, int Happiness, int Health) {
             Console.WriteLine("Main Manu:");
             Console.WriteLine("1. Feed " + PetName);
             Console.WriteLine("2. Play with " + PetName);
@@ -52,14 +81,33 @@ namespace Bin_Test
             Console.WriteLine("5. Exit");
             Console.WriteLine();
             Console.Write("Please select: ");
-            int ManuInput = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-            if (ManuInput < 1 && ManuInput > 5)
-                ExceptionHandlingForMainManu(PetName);
-            StatusOfPet(ManuInput, 5, 5, 5, PetName);
+            int ManuInput;
+
+            try
+            {
+                ManuInput = int.Parse(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Please input numeric charactors!!");
+                Console.WriteLine();
+                MainManu(PetName, Hunger, Happiness, Health);
+                return 0;
+            }
+
+            if (ManuInput < 1 || ManuInput > 5)
+            {
+                WarningForInputCorrectNumber();
+                Console.WriteLine();
+                MainManu(PetName, Hunger, Happiness, Health);
+                return 0;
+            }
+            StatusOfPet(ManuInput, Hunger, Happiness, Health, PetName);
+            return 0;
 
         }
 
+        /*Behaviors for each activity.*/
         public static void StatusOfPet (int Input, int Hunger, int Happiness, int Health, string Name)
         {
             if (Input == 1) {
@@ -67,7 +115,7 @@ namespace Bin_Test
                 Health++;
                 Console.WriteLine("You fed " + Name + ". His hunger decreases, and health improves slightly.");
                 Console.WriteLine();
-                MainManu(Name);
+                MainManu(Name, Hunger, Happiness, Health);
             }
 
             else if (Input == 2)
@@ -76,7 +124,7 @@ namespace Bin_Test
                 Hunger++;
                 Console.WriteLine("You played with " + Name + ". His happiness increases, but he is a bit hungrier.");
                 Console.WriteLine();
-                MainManu(Name);
+                MainManu(Name, Hunger, Happiness, Health);
             }
 
             else if (Input == 3)
@@ -85,19 +133,17 @@ namespace Bin_Test
                 Happiness--;
                 Console.WriteLine("You let " + Name + " rest. His health increases, but he is becoming less happy.");
                 Console.WriteLine();
-                MainManu(Name);
+                MainManu(Name, Hunger, Happiness, Health);
             }
 
             else if (Input == 4)
             {
-                Hunger--;
-                Health++;
                 Console.WriteLine(Name + "'s status:");
                 Console.WriteLine("- Hunger: " + Hunger);
                 Console.WriteLine("- Happiness: " + Happiness);
                 Console.WriteLine("- Health: " + Health);
                 Console.WriteLine();
-                MainManu(Name);
+                MainManu(Name, Hunger, Happiness, Health);
             }
 
             else
@@ -108,16 +154,12 @@ namespace Bin_Test
 
         }
 
-        public static void ExceptionHandlingForPet()
+        /*Warning message for wrong number input.*/
+        public static void WarningForInputCorrectNumber()
         {
             Console.WriteLine("The number you input is wrong!!!");
-            SelectPet();
+            Console.WriteLine();
         }
 
-        public static void ExceptionHandlingForMainManu(string PetName)
-        {
-            Console.WriteLine("The number you input is wrong!!!");
-            MainManu(PetName);
-        }
     }
 }
